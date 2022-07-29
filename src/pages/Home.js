@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography, Grid } from "@mui/material";
 
 const Home = () => {
   const [pi, setPi] = useState(0);
@@ -23,31 +23,89 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h2>Calculate Circumference of the Sun</h2>
-      <Button
-        variant="contained"
-        style={{
-          marginRight: "1rem",
-          textTransform: "none",
-          borderRadius: "1.25rem",
-        }}
-      >
-        Increase π Accuracy
-      </Button>
-      <Button
-        variant="outlined"
-        style={{
-          textTransform: "none",
-          borderRadius: "1.25rem",
-        }}
-      >
-        Calculate Circumference
-      </Button>
-      <p>Formula to calculate circumference = 2 x π x r</p>
-      <p>Pi (π) = {pi}</p>
-      <p>Radius (r) = 696340 km</p>
-      <p>Circumference (based on precision of π) = 43790987 km</p>
-      <p>Circumference (reference from Google) = 4.379 million km</p>
+      <Grid container direction="column" spacing={3}>
+        <Grid item>
+          <Typography variant="h4">
+            Calculate Circumference of the Sun
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            style={{
+              marginRight: "1rem",
+              textTransform: "none",
+              borderRadius: "1.25rem",
+            }}
+          >
+            Increase π Accuracy
+          </Button>
+          <Button
+            variant="outlined"
+            style={{
+              textTransform: "none",
+              borderRadius: "1.25rem",
+            }}
+          >
+            Calculate Circumference
+          </Button>
+        </Grid>
+        <Grid item>
+          <Grid container direction="column" spacing={3}>
+            <Grid item>
+              <Grid container justifyContent="center">
+                <Grid
+                  item
+                  style={{
+                    borderRadius: "0.5rem",
+                    width: "fit-content",
+                    border: "2px solid black",
+                    backgroundColor: "#E2DCC8",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    style={{ padding: "1rem", fontWeight: "600" }}
+                  >
+                    Formula to calculate circumference = 2 x π x r
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1">Pi (π) = {pi}</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1">Radius (r) = 696340 km</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1">
+                Circumference (based on precision of π) = 4379000.8986 km
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Grid container justifyContent="center">
+                <Grid
+                  item
+                  style={{
+                    borderRadius: "0.5rem",
+                    width: "fit-content",
+                    border: "2px solid black",
+                    backgroundColor: "#FCF8E8",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    style={{ padding: "1rem", fontWeight: "600" }}
+                  >
+                    Circumference (reference from Google) = 4379000 km
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 };
