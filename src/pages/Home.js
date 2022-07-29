@@ -3,6 +3,8 @@ import { Button, Typography, Grid } from "@mui/material";
 
 const Home = () => {
   const [pi, setPi] = useState(0);
+  const [circumference, setCircumference] = useState(0);
+  const radius = 696340;
 
   useEffect(() => {
     const fetchPiValue = async () => {
@@ -20,6 +22,13 @@ const Home = () => {
 
     fetchPiValue();
   }, []);
+
+  const calculateCircumference = () => {
+    if (pi !== 0) {
+      const circumference = 2 * pi * radius;
+      setCircumference(circumference);
+    }
+  };
 
   return (
     <div className="home">
@@ -41,6 +50,8 @@ const Home = () => {
             Increase π Accuracy
           </Button>
           <Button
+            onClick={calculateCircumference}
+            disabled={pi !== 0 ? false : true}
             variant="outlined"
             style={{
               textTransform: "none",
@@ -80,7 +91,7 @@ const Home = () => {
             </Grid>
             <Grid item>
               <Typography variant="body1">
-                Circumference (based on precision of π) = 4379000.8986 km
+                Circumference (based on precision of π) = {circumference} km
               </Typography>
             </Grid>
             <Grid item>
