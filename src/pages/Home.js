@@ -30,6 +30,10 @@ const Home = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
   return (
     <div className="home">
       <Grid container direction="column" spacing={3}>
@@ -40,6 +44,7 @@ const Home = () => {
         </Grid>
         <Grid item>
           <Button
+            onSubmit={handleSubmit}
             variant="contained"
             style={{
               marginRight: "1rem",
