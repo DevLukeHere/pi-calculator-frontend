@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, Typography, Grid } from "@mui/material";
+import { usePiCalculatorContext } from "../hooks/usePiCalculatorContext";
 
 const Home = () => {
-  const [pi, setPi] = useState(0);
+  const { piValue, dispatch } = usePiCalculatorContext();
   const [circumference, setCircumference] = useState(0);
   const radius = 696340;
 
@@ -15,7 +16,7 @@ const Home = () => {
         const objects = json;
 
         objects.map((object) => {
-          setPi(object.pi);
+          dispatch({ type: "UPDATE_PI_VALUE", payload: object.pi });
         });
       }
     };
@@ -24,15 +25,15 @@ const Home = () => {
   }, []);
 
   const calculateCircumference = () => {
-    if (pi !== 0) {
-      const circumference = 2 * pi * radius;
+    if (piValue !== 0) {
+      const circumference = 2 * piValue * radius;
       setCircumference(circumference);
     }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   return (
     <div className="home">
@@ -56,7 +57,7 @@ const Home = () => {
           </Button>
           <Button
             onClick={calculateCircumference}
-            disabled={pi !== 0 ? false : true}
+            disabled={piValue !== 0 ? false : true}
             variant="outlined"
             style={{
               textTransform: "none",
@@ -89,7 +90,7 @@ const Home = () => {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="body1">Pi (π) = {pi}</Typography>
+              <Typography variant="body1">Pi (π) = {piValue}</Typography>
             </Grid>
             <Grid item>
               <Typography variant="body1">Radius (r) = 696340 km</Typography>
