@@ -3,20 +3,27 @@ import { Button, Typography, Grid } from "@mui/material";
 import { usePiCalculatorContext } from "../hooks/usePiCalculatorContext";
 
 const Home = () => {
-  const { piValue, dispatch } = usePiCalculatorContext();
+  const { pi, precision, calculating, dispatch } = usePiCalculatorContext();
   const [circumference, setCircumference] = useState(0);
   const radius = 696340;
+
+  // console.log("pi:", pi);
+  // console.log("precision:", precision);
+  // console.log("calculating:", calculating)
 
   useEffect(() => {
     const fetchPiValue = async () => {
       const response = await fetch("/api/calculator");
+
+      dispatch({ type: "UPDATING_VALUES" });
+
       const json = await response.json();
 
       if (response.ok) {
         const objects = json;
 
         objects.map((object) => {
-          dispatch({ type: "UPDATE_PI_VALUE", payload: object.pi });
+          dispatch({ type: "GET_VALUES", payload: object });
         });
       }
     };
@@ -25,14 +32,35 @@ const Home = () => {
   }, []);
 
   const calculateCircumference = () => {
-    if (piValue !== 0) {
-      const circumference = 2 * piValue * radius;
+    if (pi !== 0) {
+      const circumference = 2 * pi * radius;
       setCircumference(circumference);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
+
+    const updatePiValue = { pi, precision };
+
+    const response = await fetch("/api/calculator/62e38f524b55385f7710af02", {
+      method: "PATCH",
+      body: JSON.stringify(updatePiValue),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    dispatch({ type: "UPDATING_VALUES" });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      console.log("success");
+      dispatch({ type: "UPDATING_VALUES_SUCCEEDED", payload: json });
+    } else {
+      console.log("failed:", json.error);
+    }
   };
 
   return (
@@ -45,7 +73,7 @@ const Home = () => {
         </Grid>
         <Grid item>
           <Button
-            onSubmit={handleSubmit}
+            onClick={handleClick}
             variant="contained"
             style={{
               marginRight: "1rem",
@@ -57,7 +85,7 @@ const Home = () => {
           </Button>
           <Button
             onClick={calculateCircumference}
-            disabled={piValue !== 0 ? false : true}
+            disabled={pi !== 0 ? false : true}
             variant="outlined"
             style={{
               textTransform: "none",
@@ -90,7 +118,15 @@ const Home = () => {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="body1">Pi (π) = {piValue}</Typography>
+              <Typography variant="body1">
+                Precision of π ={" "}
+                {calculating ? "calculating..." : `${precision} decimal`}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body1">
+                Pi (π) = {calculating ? "calculating..." : `${pi}`}
+              </Typography>
             </Grid>
             <Grid item>
               <Typography variant="body1">Radius (r) = 696340 km</Typography>
