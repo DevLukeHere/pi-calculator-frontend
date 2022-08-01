@@ -66,8 +66,17 @@ const Home = () => {
     <div className="home">
       <Grid container direction="column" spacing={3}>
         <Grid item>
-          <Typography variant="h4">
+          <Typography variant="h4" style={{ fontWeight: "bold" }}>
             Calculate Circumference of the Sun
+          </Typography>
+          <Typography
+            variant="body1"
+            style={{ maxWidth: "55%", margin: "1rem auto 0 auto" }}
+          >
+            To calculate the circumference of the sun, increase the accuracy of
+            π to the desired value and click on the "Calculate Circumference"
+            button to get the circumference. Compare it to the reference
+            circumference by Google.
           </Typography>
         </Grid>
         <Grid item>
@@ -144,7 +153,7 @@ const Home = () => {
             </Grid>
             <Grid item>
               <Typography variant="body1">
-                Circumference (based on precision of π) = {circumference} km
+                Circumference = {circumference} km
               </Typography>
             </Grid>
             <Grid item>
