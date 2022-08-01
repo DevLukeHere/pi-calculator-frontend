@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Typography, Grid } from "@mui/material";
 import { usePiCalculatorContext } from "../hooks/usePiCalculatorContext";
 
 const Home = () => {
-  const { pi, precision, calculating, dispatch } = usePiCalculatorContext();
-  const [circumference, setCircumference] = useState(0);
+  const { pi, precision, calculating, circumference, dispatch } =
+    usePiCalculatorContext();
   const radius = 696340;
-
-  // console.log("pi:", pi);
-  // console.log("precision:", precision);
-  // console.log("calculating:", calculating)
 
   useEffect(() => {
     const fetchPiValue = async () => {
@@ -22,19 +18,21 @@ const Home = () => {
       if (response.ok) {
         const objects = json;
 
-        objects.map((object) => {
-          dispatch({ type: "GET_VALUES", payload: object });
-        });
+        if (objects?.length > 0) {
+          dispatch({ type: "GET_VALUES", payload: objects[0] });
+        }
       }
     };
 
     fetchPiValue();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const calculateCircumference = () => {
     if (pi !== 0) {
       const circumference = 2 * pi * radius;
-      setCircumference(circumference);
+      dispatch({ type: "UPDATE_CIRCUMFERENCE", payload: circumference });
     }
   };
 
@@ -56,7 +54,6 @@ const Home = () => {
     const json = await response.json();
 
     if (response.ok) {
-      console.log("success");
       dispatch({ type: "UPDATING_VALUES_SUCCEEDED", payload: json });
     } else {
       console.log("failed:", json.error);
@@ -76,7 +73,7 @@ const Home = () => {
             onClick={handleClick}
             variant="contained"
             style={{
-              marginRight: "1rem",
+              margin: "0.5rem",
               textTransform: "none",
               borderRadius: "1.25rem",
             }}
@@ -85,9 +82,10 @@ const Home = () => {
           </Button>
           <Button
             onClick={calculateCircumference}
-            disabled={pi !== 0 ? false : true}
+            disabled={pi !== 0 || !calculating ? false : true}
             variant="outlined"
             style={{
+              margin: "1rem",
               textTransform: "none",
               borderRadius: "1.25rem",
             }}

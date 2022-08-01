@@ -9,6 +9,7 @@ export const piReducer = (state, action) => {
         pi: action.payload.pi,
         precision: action.payload.precision,
         calculating: false,
+        circumference: 0,
       };
     case "UPDATING_VALUES_SUCCEEDED":
       return {
@@ -16,6 +17,11 @@ export const piReducer = (state, action) => {
         pi: action.payload.pi,
         precision: action.payload.precision,
         calculating: false,
+      };
+    case "UPDATE_CIRCUMFERENCE":
+      return {
+        ...state,
+        circumference: action.payload,
       };
     case "UPDATING_VALUES":
       return {
@@ -32,6 +38,7 @@ export const PiCalculatorProvider = ({ children }) => {
     pi: 3,
     precision: 0,
     calculating: false,
+    circumference: 0,
   });
 
   return (
