@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Button, Typography, Grid } from "@mui/material";
+import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { usePiCalculatorContext } from "../hooks/usePiCalculatorContext";
 
 const Home = () => {
-  const { pi, precision, calculating, circumference, dispatch } =
+  const { pi, precision, calculating, circumference, recalculate, dispatch } =
     usePiCalculatorContext();
   const radius = 696340;
 
@@ -38,6 +38,8 @@ const Home = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+
+    dispatch({ type: "CLEAR_CIRCUMFERENCE" });
 
     const updatePiValue = { pi, precision };
 
@@ -90,7 +92,9 @@ const Home = () => {
               borderRadius: "1.25rem",
             }}
           >
-            Calculate Circumference
+            {recalculate
+              ? "Recalculate Circumference"
+              : "Calculate Circumference"}
           </Button>
         </Grid>
         <Grid item>
@@ -118,12 +122,21 @@ const Home = () => {
             <Grid item>
               <Typography variant="body1">
                 Precision of π ={" "}
-                {calculating ? "calculating..." : `${precision} decimal`}
+                {calculating ? (
+                  <CircularProgress style={{ width: "1rem", height: "1rem" }} />
+                ) : (
+                  `${precision} ${precision > 1 ? "decimals" : "decimal"}`
+                )}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="body1">
-                Pi (π) = {calculating ? "calculating..." : `${pi}`}
+                Pi (π) ={" "}
+                {calculating ? (
+                  <CircularProgress style={{ width: "1rem", height: "1rem" }} />
+                ) : (
+                  `${pi}`
+                )}
               </Typography>
             </Grid>
             <Grid item>
