@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const PiCalculatorContext = createContext();
 
-export const piReducer = (state, action) => {
+export const piCalculatorReducer = (state, action) => {
   switch (action.type) {
     case "GET_VALUES":
       return {
@@ -41,7 +41,7 @@ export const piReducer = (state, action) => {
 };
 
 export const PiCalculatorProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(piReducer, {
+  const [state, dispatch] = useReducer(piCalculatorReducer, {
     pi: 3,
     precision: 0,
     calculating: false,

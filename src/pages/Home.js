@@ -7,6 +7,7 @@ const Home = () => {
     usePiCalculatorContext();
   const radius = 696340;
 
+  // on initial load, retrieve latest data from the backend and store in React context
   useEffect(() => {
     const fetchPiValue = async () => {
       const response = await fetch("/api/calculator");
@@ -29,6 +30,7 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // to calculate the circumference based on the current pi value
   const calculateCircumference = () => {
     if (pi !== 0) {
       const circumference = 2 * pi * radius;
@@ -36,6 +38,7 @@ const Home = () => {
     }
   };
 
+  // to update the pi value on backend for improved precision
   const handleClick = async (e) => {
     e.preventDefault();
 

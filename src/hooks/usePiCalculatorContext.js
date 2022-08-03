@@ -4,8 +4,11 @@ import { useContext } from "react";
 export const usePiCalculatorContext = () => {
   const context = useContext(PiCalculatorContext);
 
+  // throw an error if the context is used outside of the set provider
   if (!context) {
-    throw Error("error message to use context!");
+    throw Error(
+      "usePiCalculatorContext must be used within a PiCalculatorProvider"
+    );
   }
 
   return context;
