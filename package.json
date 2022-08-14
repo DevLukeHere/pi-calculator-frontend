@@ -3,7 +3,7 @@
   "name": "pi-calculator-frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://lukewzk.github.io",
+  "homepage": "https://lukewzk.github.io/pi-calculator-frontend",
   "dependencies": {
     "-": "^0.0.1",
     "@emotion/react": "^11.9.3",
