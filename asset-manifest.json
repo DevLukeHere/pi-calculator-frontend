@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.0847d3a2.css",
-    "main.js": "/static/js/main.8a1d8989.js",
-    "index.html": "/index.html",
-    "main.0847d3a2.css.map": "/static/css/main.0847d3a2.css.map",
-    "main.8a1d8989.js.map": "/static/js/main.8a1d8989.js.map"
+    "main.css": "/pi-calculator-frontend/static/css/main.0847d3a2.css",
+    "main.js": "/pi-calculator-frontend/static/js/main.8a1d8989.js",
+    "index.html": "/pi-calculator-frontend/index.html",
+    "main.0847d3a2.css.map": "/pi-calculator-frontend/static/css/main.0847d3a2.css.map",
+    "main.8a1d8989.js.map": "/pi-calculator-frontend/static/js/main.8a1d8989.js.map"
   },
   "entrypoints": [
     "static/css/main.0847d3a2.css",
